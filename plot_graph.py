@@ -20,9 +20,9 @@ def node_checkpoints(node):
     G = nx.DiGraph()
 
     # Use node.get_checkpoint_parent(block)
-    for block_hash in node.received:
-        if isinstance(node.received[block_hash], Block):
-            block = node.received[block_hash]
+    for block_hash in node.processed:
+        if isinstance(node.processed[block_hash], Block):
+            block = node.processed[block_hash]
             # Check that the block is a checkpoint
             if block.height % EPOCH_SIZE == 0:
                 G.add_node(block_hash)
@@ -62,7 +62,7 @@ def plot_node_blockchains(nodes, image_file):
         pos = {}
         labels = {}
         for block_hash in list(G.nodes()):
-            block = node.received[block_hash]
+            block = node.processed[block_hash]
             # FOR PREPARE-COMMIT
             # if block_hash in node.committable:
             # FOR VOTE
